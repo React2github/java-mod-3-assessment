@@ -10,6 +10,7 @@ try (Scanner scanner = new Scanner(System.in)) {
 // Error handling for hospital name
 while(hospital.getName().isBlank()) {
     response = scanner.nextLine();
+    hospital.setName(response);
 }
     System.out.println("Your hospital will now be called " + hospital.getName());
 // Create 3 doctor instances w/ names and specialities
@@ -24,9 +25,17 @@ while(hospital.getName().isBlank()) {
             doctor.setName(scanner.nextLine());
         }
         System.out.println("Give your doctor a specialty");
-        doctor.setSpeciality((scanner.nextLine()));
-        while(doctor.getSpeciality().isBlank()) {
-            doctor.setSpeciality(scanner.nextLine());
+        System.out.println("Which speciality are you interested in? ");
+        System.out.println("1. Emergency Medicine \n 2. Dermatology \n 3. Surgery");
+        int specialityNum = scanner.nextInt();
+        switch(specialityNum) {
+            case 1:
+                doctor.setSpeciality("Emergency Medicine");
+                break;
+            case 2:
+                doctor.setSpeciality("Dermatology");
+            case 3:
+                doctor.setSpeciality("surgery");
         }
         System.out.println("Congrats! You added " + doctor.getName() + " to the team!");
         hospital.addDoctorToSpecMap(doctor.getSpeciality(), doctor);
@@ -43,39 +52,35 @@ while(hospital.getName().isBlank()) {
     }
 // Create 5 patients for the hospital 
 // Display list of all specialities by doctors and let patients pick 
-// Match patients with doctors based on speciality
+// Match patients with speciality
     System.out.println("It's time to create some patients");
     System.out.println("Let's add 5 patients to the schedule");
     Patient patient = new Patient();
-    // Patient.getName() = new ArrayList<>();
-    // Patient.speciality = new ArrayList<>();
-    // Patient.pairList = new ArrayList<>();
     int amtOfPatients = 0;
     while(amtOfPatients < 5){
         System.out.println("Name of patient ");
         patient.setName(scanner.nextLine());
-        while(patient.getName().isBlank()) {
-            patient.setName(scanner.nextLine());
-        }
-        // System.out.println("Which speciality are you interested in? ");
-        // System.out.println("1: " + doctors.speciality.get(0));
-        // System.out.println("2: " + doctors.speciality.get(1));
-        // System.out.println("3: " + doctors.speciality.get(2));
-        // int specialityNum = reader.nextInt();
-        // String pairings = Patient.name.get(amtOfPatients) + " paired with " + doctors.name.get(specialityNum-1);
-        // Patient.pairList.add(pairings);
-        // System.out.println(pairings);
+         System.out.println("Which speciality are you interested in? ");
+         System.out.println("1. Emergency Medicine \n 2. Dermatology \n 3. Surgery");
+         int specialityNum = scanner.nextInt();
+         switch(specialityNum) {
+             case 1:
+                 patient.setSpecialityNeed("Emergency Medicine");
+                 break;
+             case 2:
+                 patient.setSpecialityNeed("Dermatology");
+             case 3:
+                 patient.setSpecialityNeed("surgery");
+         }
+         doctor.patients.add(patient);
+         System.out.println("You have successfully created a patient");
         amtOfPatients = amtOfPatients + 1;
+         // Use Switch case to return reducedHealth total int value
+//         hospital.getDoctorSpecMap();
     }
+    // We need to pair patients w the right doctors
+    System.out.println("Pick a doctor to treat your patient");
 
-// Create new hospital instance using hospital class here with name 
-
-// use Logger to create three doctors using Doctor class (name & speciality)
-
-// Check if doctors are in the system using boolean logic 
-
-// Create 5 patients using patient class 
-// Allow patients to match with doctors based on need 
 
 
     }

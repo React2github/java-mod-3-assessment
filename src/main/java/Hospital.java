@@ -10,6 +10,10 @@ public class Hospital {
         return doctorSpecMap;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Hospital(String name){
         this.name = name;
         this.doctorSpecMap = new HashMap<>();
