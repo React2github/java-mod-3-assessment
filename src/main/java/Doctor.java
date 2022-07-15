@@ -1,9 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Doctor {
     private String name;
     private String speciality; 
     private Boolean Registered = true;
     private int healingPower;
     
+    List<Patient> patients = new ArrayList<>();
+
     public String getName() {
         return name;
     }

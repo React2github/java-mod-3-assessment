@@ -2,15 +2,14 @@ import java.util.Scanner;
 
 public class HospitalWorld {
     public static void main(String[] args) {
-
 System.out.println("Welcome, you are the new CEO of a major hospital. ");
 System.out.println("Start by naming the new hospital ");
-try (Scanner reader = new Scanner(System.in)) {
-    Hospital hospital = new Hospital();
-    hospital.setName(reader.nextLine());
+try (Scanner scanner = new Scanner(System.in)) {
+    String response = scanner.nextLine();
+    Hospital hospital = new Hospital(response);
 // Error handling for hospital name
 while(hospital.getName().isBlank()) {
-    hospital.setName(reader.nextLine());
+    response = scanner.nextLine();
 }
     System.out.println("Your hospital will now be called " + hospital.getName());
 // Create 3 doctor instances w/ names and specialities
@@ -20,28 +19,24 @@ while(hospital.getName().isBlank()) {
     Doctor doctor = new Doctor();
     while(amtOfDoctors < 3) {
         System.out.println("Give your doctor a name ");
-        doctor.setName((reader.nextLine()));
+        doctor.setName((scanner.nextLine()));
         while(doctor.getName().isBlank()) {
-            doctor.setName(reader.nextLine());
+            doctor.setName(scanner.nextLine());
+        }
+        System.out.println("Give your doctor a specialty");
+        doctor.setSpeciality((scanner.nextLine()));
+        while(doctor.getSpeciality().isBlank()) {
+            doctor.setSpeciality(scanner.nextLine());
         }
         System.out.println("Congrats! You added " + doctor.getName() + " to the team!");
+        hospital.addDoctorToSpecMap(doctor.getSpeciality(), doctor);
+        System.out.println(hospital.getSpecMap());
         amtOfDoctors = amtOfDoctors + 1;
     }
-    // int amtOfSpecialities = 0;
-    // while(amtOfSpecialities < 3){
-        // System.out.println("Give your doctor a speciality ");
-        // doctor.speciality.add(reader.next());
-        // if (!pattern.matcher(doctors.speciality.get(speciality)).matches()) {
-        //     throw new IllegalArgumentException("You typed in an Invalid String");
-        // }
-        // System.out.println(doctors.name.get(speciality) + " speciality is " + doctors.speciality.get(speciality) + "!");
-        // speciality = speciality + 1;
-    // }
-    // System.out.println(doctors.getSpeciality());
     System.out.println("We have enough doctors now!");
 // Check Doctor is Registered 
     System.out.println("Let's register the doctors");
-    if(doctor.getRegistered() == true) {
+    if(doctor.getRegistered()) {
         System.out.println("Your doctor is in the system!");
     } else {
         System.out.println("We couldn't find your doctor in our system");
@@ -56,11 +51,11 @@ while(hospital.getName().isBlank()) {
     // Patient.speciality = new ArrayList<>();
     // Patient.pairList = new ArrayList<>();
     int amtOfPatients = 0;
-    while(amtOfPatients < 3){
+    while(amtOfPatients < 5){
         System.out.println("Name of patient ");
-        patient.setName(reader.nextLine());
+        patient.setName(scanner.nextLine());
         while(patient.getName().isBlank()) {
-            patient.setName(reader.nextLine());
+            patient.setName(scanner.nextLine());
         }
         // System.out.println("Which speciality are you interested in? ");
         // System.out.println("1: " + doctors.speciality.get(0));
@@ -84,5 +79,8 @@ while(hospital.getName().isBlank()) {
 
 
     }
+
 }
 }
+
+
