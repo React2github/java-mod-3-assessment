@@ -6,12 +6,14 @@ import java.util.Map;
 public class Hospital {
     private String name;
     private Map<String, List<Doctor>> doctorSpecMap;
-    public Map<String, List<Doctor>> getDoctorSpecMap() {
-        return doctorSpecMap;
-    }
+
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Doctor> getDoctors(String speciality){
+        return doctorSpecMap.get(speciality);
     }
 
     public Hospital(String name){

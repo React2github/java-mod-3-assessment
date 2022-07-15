@@ -7,6 +7,11 @@ public class Patient {
     private int healthIndex;
     List<Doctor> Doctors = new ArrayList<>();
 
+    public Patient(String name, String specialityNeed) {
+        this.name = name;
+        this.specialityNeed = specialityNeed;
+    }
+
     public String getName() {
         return name;
     }

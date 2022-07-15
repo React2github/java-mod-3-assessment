@@ -9,6 +9,36 @@ public class Doctor {
     
     List<Patient> patients = new ArrayList<>();
 
+
+    public Doctor(String name, String speciality) {
+        this.name = name;
+        this.speciality = speciality;
+
+      switch(speciality){
+          case "Emergency Medicine":
+              this.healingPower = 10;
+              break;
+          case "Dermatology":
+              this.healingPower = 15;
+              break;
+          case "surgery":
+              this.healingPower = 5;
+              break;
+      }
+    }
+
+    
+    @Override
+    public String toString() {
+        return "Doctor [name=" + name + "]";
+    }
+
+
+    public void addPatientToList(Patient patient){
+        patients.add(patient);
+    }
+
+
     public String getName() {
         return name;
     }
