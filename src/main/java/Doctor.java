@@ -14,17 +14,7 @@ public class Doctor {
         this.name = name;
         this.speciality = speciality;
 
-      switch(speciality){
-          case "Emergency Medicine":
-              this.healingPower = 10;
-              break;
-          case "Dermatology":
-              this.healingPower = 15;
-              break;
-          case "surgery":
-              this.healingPower = 5;
-              break;
-      }
+
     }
 
     
@@ -38,6 +28,14 @@ public class Doctor {
         patients.add(patient);
     }
 
+
+    public void retrievePatientsList(){
+        int i = 1;
+        for(Patient patient : patients){
+            System.out.println(i + ". " + patient.getName());
+        }
+        i++;
+    }
 
     public String getName() {
         return name;
@@ -60,7 +58,18 @@ public class Doctor {
     public int getHealingPower() {
         return healingPower;
     }
-    public void setHealingPower(int healingPower) {
+    public void setHealingPower(String speciality) {
+        switch(speciality){
+            case "Emergency Medicine":
+                this.healingPower = 10;
+                break;
+            case "Dermatology":
+                this.healingPower = 15;
+                break;
+            case "surgery":
+                this.healingPower = 5;
+                break;
+        }
         this.healingPower = healingPower;
     } 
 

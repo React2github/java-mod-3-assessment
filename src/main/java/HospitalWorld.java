@@ -93,6 +93,58 @@ while(hospital.getName().isBlank()) {
             inputDoctor.addPatientToList(patient);
         }
     }
+
+    // Time to treat patients
+    System.out.println("Let's proceed to treat a patient");
+    System.out.println("Please pick an aliment to treat: ");
+    System.out.println("1. Emergency Medicine \n 2. Dermatology \n 3. Surgery");
+    int inputAliment = scanner.nextInt();
+    scanner.nextLine();
+    String alimentContainer = "";
+    switch(inputAliment) {
+        case 1:
+            alimentContainer = "Emergency Medicine";
+            break;
+        case 2:
+            alimentContainer = "Dermatology";
+            break;
+        case 3:
+            alimentContainer = "surgery";
+            break;
+    }
+    System.out.println("You picked " + alimentContainer);
+    System.out.println("Pick a doctor who specialize in " + alimentContainer);
+    if(hospital.getSpecMap().containsKey(alimentContainer)) {
+        List<Doctor> availableDoctors = hospital.getDoctors(alimentContainer);
+        int indexOfAvailableDoctors = 0;
+        for(Doctor doctor : availableDoctors) {
+            indexOfAvailableDoctors += 1;
+            System.out.println(indexOfAvailableDoctors + ". " + doctor.getName());
+        }
+        int chosenAvailableDoctor = 0;
+        try {
+            chosenAvailableDoctor = scanner.nextInt();
+        } catch(Exception e) {
+            System.out.println("Hey put a number dummy!");
+        }
+
+        Doctor chosenDoctor = availableDoctors.get(chosenAvailableDoctor);
+        System.out.println("Which of these patients do you wanna treat?");
+        chosenDoctor.retrievePatientsList();
+        int chosenPatientToTreat = scanner.nextInt();
+        String chosenPatientName = chosenDoctor.patients.get(chosenPatientToTreat).getName();
+        System.out.println("You choose " + chosenPatientName);
+        int healthIndex = chosenDoctor.patients.get(chosenPatientToTreat).getHealthIndex(chosenDoctor.getSpeciality());
+        System.out.println(chosenPatientName + " has a health index of " + healthIndex);
+        System.out.println(chosenDoctor.getName() + " attempts healing on " + chosenPatientName);
+        chosenDoctor.setHealingPower(chosenDoctor.getSpeciality());
+        int healingPower = chosenDoctor.getHealingPower();
+        int newHealth = healthIndex + healingPower;
+        chosenDoctor.patients.get(chosenPatientToTreat).setHealthIndex(newHealth);
+        System.out.println(chosenPatientName + " has a new health Index of " + chosenDoctor.patients.get(chosenPatientToTreat).getHealthIndex(chosenDoctor.getSpeciality()));
+
+
+    }
     }
 
 }
