@@ -38,6 +38,7 @@ public class Doctor {
         patients.add(patient);
     }
 
+    public void removePatient(Patient patient) { patients.remove(patient); }
 
     public void retrievePatientsList(){
         int i = 1;

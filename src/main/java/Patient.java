@@ -3,15 +3,14 @@ public class Patient {
     private int amtOfTreatment;
     private String specialityNeed;
 
-    public int getAmtOfTreatment() {
-        return amtOfTreatment;
-    }
+
 
     private int healthIndex = 0;
 
     public Patient(String name, String specialityNeed) {
         this.name = name;
         this.specialityNeed = specialityNeed;
+        this.amtOfTreatment = 0;
 
         switch (specialityNeed) {
             case "Emergency Medicine":
@@ -48,6 +47,10 @@ public class Patient {
     }
     public int getHealthIndex(){
         return healthIndex;
+    }
+
+    public int getAmtOfTreatment() {
+        return amtOfTreatment;
     }
 
 }

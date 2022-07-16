@@ -135,7 +135,7 @@ while(hospital.getName().isBlank()) {
             System.out.println("Please use a valid input!");
         }
 
-        Doctor chosenDoctor = availableDoctors.get(chosenAvailableDoctor);
+        Doctor chosenDoctor = availableDoctors.get(chosenAvailableDoctor - 1);
         System.out.println("Which of these patients do you wanna treat?");
         chosenDoctor.retrievePatientsList();
         int chosenPatientToTreat = scanner.nextInt();
@@ -153,7 +153,8 @@ while(hospital.getName().isBlank()) {
             chosenPatient.setAmtOfTreatment(amtOfTreatment);
             System.out.println(chosenPatient.getName() + " has a new health Index of " + chosenPatient.getHealthIndex());
         }
-        System.out.println(chosenPatient.getAmtOfTreatment());
+        int treatmentAmount = chosenPatient.getAmtOfTreatment();
+        System.out.println("The amount of treatments were " + treatmentAmount);
         writeJson(hospital);
     }
     } catch (JsonProcessingException e) {
