@@ -1,3 +1,10 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
 
@@ -132,22 +139,40 @@ while(hospital.getName().isBlank()) {
         System.out.println("Which of these patients do you wanna treat?");
         chosenDoctor.retrievePatientsList();
         int chosenPatientToTreat = scanner.nextInt();
-        String chosenPatientName = chosenDoctor.patients.get(chosenPatientToTreat).getName();
-        System.out.println("You choose " + chosenPatientName);
-        int healthIndex = chosenDoctor.patients.get(chosenPatientToTreat).getHealthIndex(chosenDoctor.getSpeciality());
-        System.out.println(chosenPatientName + " has a health index of " + healthIndex);
-        System.out.println(chosenDoctor.getName() + " attempts healing on " + chosenPatientName);
-        chosenDoctor.setHealingPower(chosenDoctor.getSpeciality());
+        Patient chosenPatient = chosenDoctor.patients.get(chosenPatientToTreat - 1);
+        System.out.println("You choose " + chosenPatient.getName());
+        System.out.println(chosenPatient.getName() + " has a health index of " + chosenPatient.getHealthIndex());
+        System.out.println(chosenDoctor.getName() + " attempts healing on " + chosenPatient.getName());
         int healingPower = chosenDoctor.getHealingPower();
-        int newHealth = healthIndex + healingPower;
-        chosenDoctor.patients.get(chosenPatientToTreat).setHealthIndex(newHealth);
-        System.out.println(chosenPatientName + " has a new health Index of " + chosenDoctor.patients.get(chosenPatientToTreat).getHealthIndex(chosenDoctor.getSpeciality()));
-
-
+        int newHealth = (chosenPatient.getHealthIndex() + healingPower);
+        chosenPatient.setHealthIndex(newHealth);
+        System.out.println(chosenPatient.getName() + " has a new health Index of " + chosenPatient.getHealthIndex());
+        writeJson(hospital);
     }
-    }
-
+    } catch (JsonProcessingException e) {
+    e.printStackTrace();
 }
+
+// This is the end of my runner
+}
+    public static void writeJson(Hospital hospital) throws JsonProcessingException {
+        String json = new ObjectMapper().writeValueAsString(hospital);
+
+        try (FileWriter fileWriter = new FileWriter("myHospital.json");){
+            fileWriter.write(json);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static Hospital readJson() throws IOException {
+        Path filePath = Path.of("myHospital.json");
+
+        String content = Files.readString(filePath);
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(content, Hospital.class);
+    }
 }
 
 
