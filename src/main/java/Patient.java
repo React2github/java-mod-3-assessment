@@ -1,6 +1,12 @@
 public class Patient {
     private String name;
+    private int amtOfTreatment;
     private String specialityNeed;
+
+    public int getAmtOfTreatment() {
+        return amtOfTreatment;
+    }
+
     private int healthIndex = 0;
 
     public Patient(String name, String specialityNeed) {
@@ -36,6 +42,9 @@ public class Patient {
     }
     public void setHealthIndex(int healthIndex) {
         this.healthIndex = healthIndex;
+    }
+    public void setAmtOfTreatment(int amtOfTreatment) {
+        this.amtOfTreatment = amtOfTreatment;
     }
     public int getHealthIndex(){
         return healthIndex;

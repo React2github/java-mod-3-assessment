@@ -65,7 +65,7 @@ while(hospital.getName().isBlank()) {
 // Match patients with speciality
     System.out.println("It's time to create some patients");
     System.out.println("Let's add 5 patients to the schedule");
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < 3; i++) {
         System.out.println("Name of patient ");
         String inputName = scanner.nextLine();
         System.out.println("Which speciality are you interested in? ");
@@ -132,7 +132,7 @@ while(hospital.getName().isBlank()) {
         try {
             chosenAvailableDoctor = scanner.nextInt();
         } catch(Exception e) {
-            System.out.println("Hey put a number dummy!");
+            System.out.println("Please use a valid input!");
         }
 
         Doctor chosenDoctor = availableDoctors.get(chosenAvailableDoctor);
@@ -141,12 +141,19 @@ while(hospital.getName().isBlank()) {
         int chosenPatientToTreat = scanner.nextInt();
         Patient chosenPatient = chosenDoctor.patients.get(chosenPatientToTreat - 1);
         System.out.println("You choose " + chosenPatient.getName());
-        System.out.println(chosenPatient.getName() + " has a health index of " + chosenPatient.getHealthIndex());
-        System.out.println(chosenDoctor.getName() + " attempts healing on " + chosenPatient.getName());
-        int healingPower = chosenDoctor.getHealingPower();
-        int newHealth = (chosenPatient.getHealthIndex() + healingPower);
-        chosenPatient.setHealthIndex(newHealth);
-        System.out.println(chosenPatient.getName() + " has a new health Index of " + chosenPatient.getHealthIndex());
+        int healthIndex = chosenPatient.getHealthIndex();
+        System.out.println(chosenPatient.getName() + " has a health index of " + healthIndex);
+        int amtOfTreatment = 0;
+        while(chosenPatient.getHealthIndex() < 100) {
+            System.out.println(chosenDoctor.getName() + " attempts healing on " + chosenPatient.getName());
+            int healingPower = chosenDoctor.getHealingPower();
+            int newHealth = (chosenPatient.getHealthIndex() + healingPower);
+            amtOfTreatment++;
+            chosenPatient.setHealthIndex(newHealth);
+            chosenPatient.setAmtOfTreatment(amtOfTreatment);
+            System.out.println(chosenPatient.getName() + " has a new health Index of " + chosenPatient.getHealthIndex());
+        }
+        System.out.println(chosenPatient.getAmtOfTreatment());
         writeJson(hospital);
     }
     } catch (JsonProcessingException e) {
